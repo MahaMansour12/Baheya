@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "800914358702",
+    "project_id": "bayea-1f089",
+    "storage_bucket": "bayea-1f089.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:800914358702:android:4109e14c09597b5cd7c83f",
+        "android_client_info": {
+          "package_name": "com.example.untitled2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "800914358702-npmo6h6qsgmiun4du9g77p2vorneq28e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhQ_fWvsIoMTeNUXV6n0kFN5rTjFDfKuE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "800914358702-k7ghunb1qlq1jb16s3ieje7vptu8135k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
