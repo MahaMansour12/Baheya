@@ -1,70 +1,75 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:untitled2/ui/editingAccount/editAccount.dart';
-import 'package:untitled2/ui/sign_in.dart';
 
-import '../../shared/cubit.dart';
-import '../../shared/states.dart';
+import 'package:untitled2/ui/home/support/support.dart';
 
-class home_screen extends StatelessWidget {
+import '../editingAccount/editAccount.dart';
+import '../userData.dart';
+import 'account/account.dart';
+import 'awerence/awareness .dart';
+import 'event/event.dart';
+
+class home_screen extends StatefulWidget {
   static const String routName = 'home';
 
   @override
+  State<home_screen> createState() => _home_screenState();
+}
+
+class _home_screenState extends State<home_screen> {
+  int selextindex = 0;
+
+  @override
   Widget build(BuildContext context) {
-    final String data = ModalRoute.of(context)!.settings.arguments as String;
-    return BlocProvider(
-        create: (BuildContext context) => AppCubit(),
-        child: BlocConsumer<AppCubit, HomeStates>(
-          listener: (context, state) {},
-          builder: (context, state) => Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              leading: InkWell(
-                  onTap: () {
-                    Navigator.pushReplacementNamed(context, Sign_IN.routeName);
-                  },
-                  child: const Icon(Icons.arrow_back_ios_new_outlined,
-                      color: Colors.black, size: 25)),
-              actions:  [
-                Icon(Icons.notifications_none_rounded,color:Colors.black,size: 25),
-                SizedBox(width: 10,),
-                InkWell(
-                  onTap: (){
-                    Navigator.pushReplacementNamed(
-                        context, editAccount.routName);
-                  },
-                    child: Icon(Icons.settings_outlined,color:Colors.black,size: 25)),
-                SizedBox(width: 10,),
-
-              ],
-            ),
-            bottomNavigationBar: BottomNavigationBar(
-
-
-              elevation:  8,
-              currentIndex: AppCubit.get(context).currentIndex,
-              onTap: (index) {
-                AppCubit.get(context).ButtomNavBar(index);
-              },
-              items: const [
-                BottomNavigationBarItem(
-
-                    icon: ImageIcon(AssetImage('asstes/images/home.png'),color: Colors.grey,size: 35),
-                    label: "awareness ",),
-                BottomNavigationBarItem(
-                    icon: ImageIcon(AssetImage('asstes/images/event.png'),color: Colors.grey,size: 35),
-                    label: "Event"),
-                BottomNavigationBarItem(
-                    icon: ImageIcon(AssetImage('asstes/images/support.png'),color: Colors.grey,size: 35),
-                    label: "Support "),
-                BottomNavigationBarItem(
-                    icon:Icon(Icons.supervisor_account,color: Colors.grey,size: 35),
-                    label: "Account "),
-              ],
-
-            ),
+    return Scaffold(
+      //final String data = ModalRoute.of(context)!.settings.arguments as String;
+      body: Taps[selextindex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: selextindex,
+        onTap: (index) {
+          setState(() {
+            selextindex = index;
+          });
+        },
+        items: [
+          const BottomNavigationBarItem(
+            icon: ImageIcon(AssetImage('asstes/images/home.png'),
+                color: Colors.grey, size: 35),
+            label: "awareness ",
           ),
-        ));
+          BottomNavigationBarItem(
+              icon: ImageIcon(AssetImage('asstes/images/event.png'),
+                  color: Colors.grey, size: 35),
+              label: "Event"),
+          BottomNavigationBarItem(
+              icon: FloatingActionButton(
+                backgroundColor: Colors.white,
+                focusElevation: 2,
+                shape: const StadiumBorder(
+                    side: BorderSide(color: Color(0xfff8aca2), width: 4)),
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context,UserData.routName);
+                },
+                child: Icon(Icons.add, color: Color(0xfff8aca2), size: 30),
+              ),
+              label: ""),
+          const BottomNavigationBarItem(
+              icon: ImageIcon(AssetImage('asstes/images/support.png'),
+                  color: Colors.grey, size: 35),
+              label: "Support "),
+          const BottomNavigationBarItem(
+              icon:
+                  Icon(Icons.supervisor_account, color: Colors.grey, size: 35),
+              label: "Account "),
+        ],
+      ),
+    );
   }
+
+  List<Widget> Taps = [
+    awareness(),
+    event(),
+    UserData(),
+    support(),
+    Account(),
+  ];
 }

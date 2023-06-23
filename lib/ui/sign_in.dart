@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:untitled2/shared/states.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'package:untitled2/ui/home/home.dart';
 import 'package:untitled2/ui/register.dart';
 
 import '../remot/network/dio_helper.dart';
+import '../shared/sharedPeferences.dart';
 
 class Sign_IN extends StatelessWidget {
   static const String routeName = 'sign_in';
@@ -25,6 +27,7 @@ class Sign_IN extends StatelessWidget {
             children: [
               Stack(
                 children: [
+
                   Image(
                     image: AssetImage("asstes/images/appbBar.png"),
                     width: double.infinity,
@@ -34,9 +37,10 @@ class Sign_IN extends StatelessWidget {
                         .height * 0.35,
                     fit: BoxFit.fill,
                   ),
+
                   const Positioned(
                     left: 15,
-                    top: 150,
+                    top: 130,
                     child: Text(
                       'Sign in to Your',
                       style: TextStyle(
@@ -47,7 +51,7 @@ class Sign_IN extends StatelessWidget {
                   ),
                   const Positioned(
                     left: 15,
-                    top: 200,
+                    top: 180,
                     child: Text(
                       'Account',
                       style: TextStyle(
@@ -120,16 +124,25 @@ class Sign_IN extends StatelessWidget {
                       ),
 
                          InkWell(
+
                            onTap: (){
+
                                 ApiLink({
                                   "email":email.text,
                                   "password":password.text
-                                },'login').then((value) {
+                                },'login').then((value)async {
 
                                   if(value.statusCode==200){
                                     print(value.body);
-                                    Navigator.pushNamed(context, home_screen.routName,arguments: value.body);
+                                    Navigator.pushReplacementNamed(context, home_screen.routName);
+
+
+                                     SharedPreferences prefs = await SharedPreferences.getInstance();
+                                     String token = prefs.setString('token',value.body) as String;
+
+
                                   }else{
+                                    print(value.body);
                                     if(formKey.currentState!.validate()==false){
                                       return;
                                     }

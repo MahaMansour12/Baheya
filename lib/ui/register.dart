@@ -14,6 +14,8 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  int selectedInsex=0;
+  bool isSlec=false;
   TextEditingController email = TextEditingController();
 
   TextEditingController phone = TextEditingController();
@@ -40,7 +42,7 @@ class _RegisterState extends State<Register> {
                 Image(
                   image: const AssetImage("asstes/images/appbBar.png"),
                   width: double.infinity,
-                  height: MediaQuery.of(context).size.height * 0.3,
+                  height: MediaQuery.of(context).size.height * 0.22,
                   fit: BoxFit.fill,
                 ),
                 Positioned(
@@ -51,14 +53,14 @@ class _RegisterState extends State<Register> {
                           context, Sign_IN.routeName);
                     },
                     icon: Icon(
-                      Icons.arrow_back_rounded,
+                      Icons.arrow_back_ios_new_outlined,
                       color: Colors.black,
                     ),
                   ),
                 ),
                 const Positioned(
                   left: 15,
-                  top: 150,
+                  top: 80,
                   child: Text(
                     'Register to Your',
                     style: TextStyle(
@@ -69,7 +71,7 @@ class _RegisterState extends State<Register> {
                 ),
                 const Positioned(
                   left: 15,
-                  top: 200,
+                  top: 130,
                   child: Text(
                     'Account',
                     style: TextStyle(
@@ -212,91 +214,44 @@ class _RegisterState extends State<Register> {
                       ),
                     ),
                     const SizedBox(
-                      height: 10,
+                      height:5,
                     ),
                     const Text(
                       'Stage',
-                      textAlign: TextAlign.left,
+                      textAlign: TextAlign.start,
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                     ),
                     const SizedBox(
-                      height: 10,
+                      height:5,
                     ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    //mainAxisAlignment:MainAxisAlignment.center,
-                    children: [
-                    Row(
-                      children: [
-                      GestureDetector(
-                        onTap: (){
+                    DefaultTabController(length: 5, child:TabBar(
+                      isScrollable: true,
+                      onTap: (index){
+                        selectedInsex=index;
 
+                        setState(() {
+                          isSlec=true;
+                        });
 
-                          setState(() {
-                            selectedText='chemotherapy';
-                          });
-                        },
-                        child: StageTap(text:'chemotherapy' ),
+                      },
 
-                      ),
-
-                      GestureDetector(
-                        onTap: (){
-
-
-                          setState(() {
-                            selectedText='surgery';
-                          });
-                        },
-                        child: StageTap(text:'surgery' ),
-
-                      ),
-
-
-
-                    ],),
-                    Row(children: [
-                      GestureDetector(
-                        onTap: (){
-
-
-                          setState(() {
-                            selectedText='hormonaltherapy';
-                          });
-                        },
-                        child: StageTap(text:'hormonaltherapy' ),
-
-                      ),
-                      GestureDetector(
-                        onTap: (){
-
-
-                          setState(() {
-                            selectedText='targetedtherapy';
-                          });
-                        },
-                        child: StageTap(text:'targetedtherapy ' ),
-
-                      ),
-                    ],),
-                      GestureDetector(
-                        onTap: (){
-
-
-                          setState(() {
-                            selectedText='radiotherapy';
-                          });
-                        },
-                        child: StageTap(text:'radiotherapy' ),
-
-                      ),
-                  ],),
+                      tabs: [
+                        StageTap(text:"chemotherapy", isSelected:isSlec),
+                        StageTap(text:"surgery", isSelected:isSlec),
+                        StageTap(text:"hormonaltherapy", isSelected:isSlec),
+                        StageTap(text:"radiotherapy", isSelected:isSlec),
+                        StageTap(text:"targetedtherapy", isSelected:isSlec),
+                      ],
+                      indicatorColor: Colors.transparent,
+                    )),
                     const SizedBox(
-                      height: 15,
+                      height:5,
                     ),
                     InkWell(
                       onTap: () {
+                        Navigator.pushReplacementNamed(
+                            context, home_screen.routName);
                         ApiLink({
 
                             "name":userName.text,
@@ -309,8 +264,7 @@ class _RegisterState extends State<Register> {
                         }, 'register')
                             .then((value) {
                           if (value.statusCode == 200) {
-                            Navigator.pushReplacementNamed(
-                                context, home_screen.routName);
+
                           } else {
                             print(value.body);
                             if (formKey.currentState!.validate() == false) {
@@ -340,7 +294,7 @@ class _RegisterState extends State<Register> {
               ),
             ),
             const SizedBox(
-              height: 10,
+              height: 5,
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
@@ -367,7 +321,7 @@ class _RegisterState extends State<Register> {
               ),
             ),
             const SizedBox(
-              height: 10,
+              height: 5,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

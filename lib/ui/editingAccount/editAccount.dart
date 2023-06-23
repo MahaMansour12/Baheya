@@ -4,13 +4,27 @@ import 'package:untitled2/ui/home/home.dart';
 import '../widgets/customForm.dart';
 import '../widgets/customWidget.dart';
 
-class editAccount extends StatelessWidget {
+class editAccount extends StatefulWidget {
   static const String routName = 'editAccount';
+
+  @override
+  State<editAccount> createState() => _editAccountState();
+}
+
+class _editAccountState extends State<editAccount> {
   TextEditingController email = TextEditingController();
+
   TextEditingController password = TextEditingController();
+
   TextEditingController userName = TextEditingController();
+
   TextEditingController medicalId = TextEditingController();
+
   GlobalKey<FormState> formKey = GlobalKey();
+
+  int selectedInsex=0;
+
+  bool isSlec=false;
 
   @override
   Widget build(BuildContext context) {
@@ -107,22 +121,24 @@ class editAccount extends StatelessWidget {
                       const SizedBox(
                         height: 25,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          StageTap(
-                            text: 'Stage I',
-                          ),
-                          StageTap(
-                            text: 'Stage II',
-                          ),
-                          StageTap(
-                            text: 'Stage III',
-                          ),
-                          StageTap(
-                            text: 'Stage IV',
-                          ),
-                        ],
+                      DefaultTabController(length: 5, child:TabBar(
+                        isScrollable: true,
+                        onTap: (index){
+                          selectedInsex=index;
+                          isSlec=true;
+                          setState(() {
+
+                          });
+
+                        },
+                        tabs: [
+                        StageTap(text:"chemotherapy", isSelected:isSlec),
+                          StageTap(text:"surgery", isSelected:isSlec),
+                          StageTap(text:"hormonaltherapy", isSelected:isSlec),
+                          StageTap(text:"radiotherapy", isSelected:isSlec),
+                          StageTap(text:"targetedtherapy", isSelected:isSlec),
+                      ],
+                      indicatorColor: Colors.transparent,)
                       ),
                       const SizedBox(
                         height: 25,
