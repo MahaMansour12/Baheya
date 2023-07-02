@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled2/shared/sharedPeferences.dart';
+import 'package:untitled2/ui/ScreenOne.dart';
 import 'package:untitled2/ui/bio/bio.dart';
 
 import 'package:untitled2/ui/editingAccount/editAccount.dart';
@@ -11,7 +12,12 @@ import 'package:untitled2/ui/home/home.dart';
 import 'package:untitled2/ui/home/support/support.dart';
 import 'package:untitled2/ui/otherStage/otherStage.dart';
 import 'package:untitled2/ui/register.dart';
+import 'package:untitled2/ui/settings/Notification.dart';
+import 'package:untitled2/ui/settings/Suggestion%20&%20Complaints.dart';
+import 'package:untitled2/ui/settings/calender.dart';
+import 'package:untitled2/ui/settings/settings.dart';
 import 'package:untitled2/ui/sign_in.dart';
+import 'package:untitled2/ui/splashScreen.dart';
 import 'package:untitled2/ui/userData.dart';
 import 'firebase_options.dart';
 
@@ -43,6 +49,7 @@ class bahya extends StatelessWidget {
       routes: {
         home_screen.routName: (context) => home_screen(),
         Sign_IN.routeName: (context) => Sign_IN(),
+        ScreenOne.routeName:(context)=>ScreenOne(),
       Register.routName: (context) => Register(),
         event.routName: (context) => event(),
         support.routName: (context) => support(),
@@ -51,9 +58,15 @@ class bahya extends StatelessWidget {
         editAccount.routName:(context)=>editAccount(),
         UserData.routName:(context)=>UserData(),
         otherStage.routeName:(c)=>otherStage(),
-        bio.routeName:(v)=>bio()
+        bio.routeName:(v)=>bio(),
+        Settings.routeName:(context)=>Settings(),
+        Notifications.routeName:(context)=>Notifications(),
+        SplashScreen.routeName:(context)=>SplashScreen(),
+        SuggestionAndComplaints.routeName:(context)=>SuggestionAndComplaints(),
+        SplashScreen.routeName: (context)=>SplashScreen(),
+        Calendar.routeName: (context)=>Calendar(),
       },
-      initialRoute:  Sign_IN.routeName
+      initialRoute:  SplashScreen.routeName
     );
   }
 }
