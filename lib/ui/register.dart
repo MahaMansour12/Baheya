@@ -2,20 +2,21 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled2/ui/sign_in.dart';
 import 'package:untitled2/ui/home/home.dart';
+
 import '../remot/network/dio_helper.dart';
 import 'widgets/customWidget.dart';
 
 class Register extends StatefulWidget {
   static const String routName = 'Register';
 
-
   @override
   State<Register> createState() => _RegisterState();
 }
 
 class _RegisterState extends State<Register> {
-  int selectedInsex=0;
-  bool isSlec=false;
+  final List<String> options = ['chemotherapy', 'surgery', 'hormonaltherapy', 'radiotherapy', 'targetedtherapy'];
+ String? selectedOption;
+
   TextEditingController email = TextEditingController();
 
   TextEditingController phone = TextEditingController();
@@ -214,7 +215,7 @@ class _RegisterState extends State<Register> {
                       ),
                     ),
                     const SizedBox(
-                      height:5,
+                      height: 5,
                     ),
                     const Text(
                       'Stage',
@@ -223,51 +224,50 @@ class _RegisterState extends State<Register> {
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                     ),
                     const SizedBox(
-                      height:5,
+                      height: 5,
                     ),
-                    DefaultTabController(length: 5, child:TabBar(
-                      isScrollable: true,
-                      onTap: (index){
-                        selectedInsex=index;
 
-                        setState(() {
-                          isSlec=true;
-                        });
-
-                      },
-
-                      tabs: [
-                        StageTap(text:"chemotherapy", isSelected:isSlec),
-                        StageTap(text:"surgery", isSelected:isSlec),
-                        StageTap(text:"hormonaltherapy", isSelected:isSlec),
-                        StageTap(text:"radiotherapy", isSelected:isSlec),
-                        StageTap(text:"targetedtherapy", isSelected:isSlec),
-                      ],
-                      indicatorColor: Colors.transparent,
-                    )),
+              DropdownButton(
+                 hint:const Text('Enter your Stage',style:  TextStyle(fontSize: 20, fontWeight: FontWeight.w500),),
+              value: selectedOption,
+              items: options
+                  .map((option) => DropdownMenuItem(
+                child: Text(option),
+                value: option,
+              ))
+                  .toList(),
+              onChanged: (value) {
+                setState(() {
+                  selectedOption = value  as String?;
+                });
+              },
+            ),
                     const SizedBox(
-                      height:5,
+                      height: 5,
                     ),
                     InkWell(
                       onTap: () {
-                        Navigator.pushReplacementNamed(
-                            context, home_screen.routName);
-                        ApiLink({
-
-                            "name":userName.text,
-                            "email":email.text,
-                            "phone":phone.text,
-                            "medicalNumber":medicalId.text,
-                            "password":password.text,
-                            "chosenStage":selectedText
-
+                        API.ApiLink({
+                          "name": userName.text,
+                          "email": email.text,
+                          "phone": phone.text,
+                          "medicalNumber": medicalId.text,
+                          "password": password.text,
+                          "chosenStage": selectedOption
                         }, 'register')
-                            .then((value) {
-                          if (value.statusCode == 200) {
+                            .then((value) async {
+                          if (value.statusCode == 200 &&
+                              formKey.currentState!.validate()) {
+                            print(value.body);
+                            Navigator.pushReplacementNamed(
+                                context, home_screen.routName);
+
+                            // SharedPreferences prefs = await SharedPreferences.getInstance();
+                            // String token = prefs.setString('token',value.body) as String;
 
                           } else {
                             print(value.body);
-                            if (formKey.currentState!.validate() == false) {
+                            if (formKey.currentState?.validate() == false) {
                               return;
                             }
                           }
@@ -333,6 +333,7 @@ class _RegisterState extends State<Register> {
                 InkWell(
                   onTap: () {
                     Navigator.pushReplacementNamed(context, Sign_IN.routeName);
+
                   },
                   child: const Text('Sign in ',
                       style: TextStyle(

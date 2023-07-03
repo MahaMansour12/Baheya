@@ -10,8 +10,8 @@ class customArtical extends StatelessWidget {
       padding: const EdgeInsets.all(8),
       child: Container(
         padding: const EdgeInsets.all(10),
-        height: 100,
-        width: 100,
+        height: 250,
+        width: 250,
         decoration: BoxDecoration(
 
             color: const Color(0x51f8aca2),

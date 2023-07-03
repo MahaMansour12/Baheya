@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:untitled2/remot/Api_petion_information/API_PatientInformation.dart';
+import 'package:untitled2/ui/changPassword.dart';
 import 'package:untitled2/ui/home/home.dart';
 
 import '../widgets/customForm.dart';
@@ -12,19 +14,17 @@ class editAccount extends StatefulWidget {
 }
 
 class _editAccountState extends State<editAccount> {
+  final List<String> options = ['chemotherapy', 'surgery', 'hormonaltherapy', 'radiotherapy', 'targetedtherapy'];
+  String? selectedOption;
   TextEditingController email = TextEditingController();
 
-  TextEditingController password = TextEditingController();
 
   TextEditingController userName = TextEditingController();
 
-  TextEditingController medicalId = TextEditingController();
+  TextEditingController phone = TextEditingController();
 
   GlobalKey<FormState> formKey = GlobalKey();
 
-  int selectedInsex=0;
-
-  bool isSlec=false;
 
   @override
   Widget build(BuildContext context) {
@@ -96,22 +96,15 @@ class _editAccountState extends State<editAccount> {
                         ), const SizedBox(
                         height: 25,
                       ),
-                       customForm(' New Password',Icon(Icons.lock_outline), controller:userName,
-                        keyboard: TextInputType.visiblePassword,
+                      customForm('phone',Icon(Icons.phone), controller:userName,
+                        keyboard: TextInputType.name,
                         obscure: false,
 
 
                       ), const SizedBox(
                         height: 25,
                       ),
-                    customForm('Medical ID',Icon(Icons.perm_identity), controller:userName,
-                        keyboard: TextInputType.name,
-                        obscure: false,
 
-                      ),
-                      const SizedBox(
-                        height: 25,
-                      ),
                       const Text(
                         'Stage',
                         textAlign: TextAlign.left,
@@ -121,43 +114,59 @@ class _editAccountState extends State<editAccount> {
                       const SizedBox(
                         height: 25,
                       ),
-                      DefaultTabController(length: 5, child:TabBar(
-                        isScrollable: true,
-                        onTap: (index){
-                          selectedInsex=index;
-                          isSlec=true;
+                      DropdownButton (
+                        hint:const Text('Update your Stage',style:  TextStyle(fontSize: 20, fontWeight: FontWeight.w500),),
+                        value: selectedOption,
+                        items: options
+                            .map((option) => DropdownMenuItem(
+                          child: Text(option),
+                          value: option,
+                        ))
+                            .toList(),
+                        onChanged: (value) {
                           setState(() {
-
+                            selectedOption = value  as String?;
                           });
-
                         },
-                        tabs: [
-                        StageTap(text:"chemotherapy", isSelected:isSlec),
-                          StageTap(text:"surgery", isSelected:isSlec),
-                          StageTap(text:"hormonaltherapy", isSelected:isSlec),
-                          StageTap(text:"radiotherapy", isSelected:isSlec),
-                          StageTap(text:"targetedtherapy", isSelected:isSlec),
-                      ],
-                      indicatorColor: Colors.transparent,)
                       ),
                       const SizedBox(
                         height: 25,
                       ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(vertical: 15),
-                        height: 60,
-                        width: 300,
-                        decoration: BoxDecoration(
-                            border: Border.all(width: 1, color: Colors.grey),
-                            color: const Color(0xfff8aca2),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: const Text(
-                          'Update',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500, fontSize: 19),
+                      InkWell(
+                        onTap: (){
+                          UPData.sendUPData(data: {
+                            'chosenStage':selectedOption,
+                            'name':userName.text,
+                            'phone':phone.text
+
+                          }, endpoint: 'UpdatePatientInformation');
+
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(vertical: 15),
+                          height: 60,
+                          width: 300,
+                          decoration: BoxDecoration(
+                              border: Border.all(width: 1, color: Colors.grey),
+                              color: const Color(0xfff8aca2),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: const Text(
+                            'Update',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500, fontSize: 19),
+                          ),
                         ),
+                      ),const SizedBox(
+                        height: 10,
                       ),
+
+                      InkWell(
+                          onTap: (){
+                            Navigator.pushReplacementNamed(context,UPdataPassword.routName );
+
+                          },
+                          child: const SizedBox(height: 100,width: 300,child: Text('Change Your Password'),)),
 
                 ]),
               ),

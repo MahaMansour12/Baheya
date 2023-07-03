@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:untitled2/ui/widgets/customIamge.dart';
-import 'package:video_player/video_player.dart';
 import 'package:untitled2/ui/editingAccount/editAccount.dart';
 import 'package:untitled2/ui/otherStage/otherStage.dart';
-import '../../../model/Mat.dart';
+import '../../../artical.dart';
+import '../../../dataclick.dart';
+
+
 import '../../../remot/network/materail.dart';
 import '../../sign_in.dart';
+import '../../videos.dart';
+import '../../widgets/customIamge.dart';
 import '../../widgets/custom_artical.dart';
 import '../../widgets/homeRowStage.dart';
 import 'package:untitled2/ui/bio/bio.dart';
@@ -20,20 +23,7 @@ class awareness extends StatefulWidget {
 class _awarenessState extends State<awareness> {
   bool _isHovered = false;
 
-  //late VideoPlayerController Controller;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   Controller =
-  //       VideoPlayerController.network('https://example.com/path/to/video.mp4')
-  //         ..initialize().then((_) {
-  //           // Once the video has been loaded, play it automatically
-  //           Controller.play();
-  //           setState(() {}); // update the widget
-  //         });
-  // }
-  // late List<Material>material;
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -72,7 +62,7 @@ class _awarenessState extends State<awareness> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                'Hello Amira',
+                'Hello ...',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                 textAlign: TextAlign.start,
               ),
@@ -101,11 +91,7 @@ class _awarenessState extends State<awareness> {
                       ),
                     )),
               ),
-              Text(
-                'Stage II',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-                textAlign: TextAlign.center,
-              ),
+
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -129,7 +115,7 @@ class _awarenessState extends State<awareness> {
                   InkWell
                     (
                     onTap: (){
-                          Navigator.pushReplacementNamed(context, otherStage.routeName);
+                         Navigator.pushReplacementNamed(context, otherStage.routeName);
                     },
                     child: homeStage(
                       image: 'asstes/images/other.png',
@@ -153,19 +139,22 @@ class _awarenessState extends State<awareness> {
                   ),
                 ],
               ),
-              FutureBuilder<List<dynamic>>(
-                future: fetchMaterials('ImageMaterials'),
+              FutureBuilder<dynamic>(
+                future: ImageMaterialApi.getMaterials(endPoint: 'ImageMaterials'),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-
+                    final materials = snapshot.data!;
                     return Container(
-                      height: 160,
-                      width: 130, // set a fixed height for the ListView
+                      height: 200,
+                      width: 200, // set a fixed height for the ListView
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         shrinkWrap: true,
                         itemBuilder: (BuildContext context, int index) {
-                          var item = snapshot.data![index];
+                          final material = materials[index];
+
+
+
                           return Padding(
                             padding: const EdgeInsets.symmetric(vertical: 10),
                             child: Container(
@@ -173,12 +162,7 @@ class _awarenessState extends State<awareness> {
                                     onEnter: (event) {
                                       setState(() {
                                         _isHovered = true;
-                                        Container(height: 200,width: 200,
-                                        child: Column(children: [
-                                        Text(item['title']),
-                                        Text(item['description']),
-                                        Text(item['surgery']),
-                                        ],));
+
 
 
                                       });
@@ -188,19 +172,29 @@ class _awarenessState extends State<awareness> {
                                         _isHovered = false;
                                       });
                                     },
-                                    child: InkWell(
-                                      onTap: () {
-                                        // handle tap action
-                                      },
+
                                       child: Opacity(
                                           opacity: _isHovered ? 0.5 : 1.0,
 
-                                      child: customImage(
-                                              imagee:item['imageUrl'])))
-                                    ))
+                                      child:InkWell(
+                                        onTap: (){
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => ImageMaterialDetailScreen(material: material),
+                                            ),
+                                          );
+                                        },
+                                        child:MyImageWidget(imageUrl: material.url,
+                                    ),
+                                      )
+                          )
+
+                                    )
+                                )
                           );
                         },
-                        itemCount:snapshot.data?.length,
+                        itemCount: materials.length,
                       ),
                     );
                   } else if (snapshot.hasError) {
@@ -229,33 +223,33 @@ class _awarenessState extends State<awareness> {
                   ),
                 ],
               ),
-              FutureBuilder<List<dynamic>>(
-                future: fetchMaterials('ArticleMaterials'),
+              FutureBuilder<dynamic>(
+                future: ImageMaterialApi.getMaterials( endPoint: 'ArticleMaterials'
+                ),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
+                    final materials = snapshot.data!;
 
                     return Container(
-                      height: 160,
-                      width: 130, // set a fixed height for the ListView
+                      height: 200,
+                      width: 250, // set a fixed height for the ListView
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         shrinkWrap: true,
                         itemBuilder: (BuildContext context, int index) {
-                          var item = snapshot.data![index];
+                          final material = materials[index];
                           return Padding(
                               padding: const EdgeInsets.symmetric(vertical: 10),
                               child: Container(
                                   child: MouseRegion(
                                       onEnter: (event) {
-                                        
+
                                         setState(() {
                                           Container(height: 200,width: 200,
                                           child: Column(children: [
-                                            Text(item['title']),
-                                            Text(item['description']),
-                                            Text(item['surgery']),
+
                                           ],),
-                                          
+
                                           );
                                           _isHovered = true;
                                         });
@@ -267,16 +261,22 @@ class _awarenessState extends State<awareness> {
                                       },
                                       child: InkWell(
                                           onTap: () {
-                                            // handle tap action
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => ArticalMaterialDetailScreen(material: material),
+                                              ),
+                                            );
                                           },
                                           child: Opacity(
                                               opacity: _isHovered ? 0.5 : 1.0,
 
-                                              child: customArtical(artical:item['title'])))
-                                  ))
+                                              child: customArtical(artical:'${material.description}'),
+                                                  )))
+                                  )
                           );
                         },
-                        itemCount:snapshot.data?.length,
+                        itemCount: materials.length,
                       ),
                     );
                   } else if (snapshot.hasError) {
@@ -305,44 +305,74 @@ class _awarenessState extends State<awareness> {
                   ),
                 ],
               ),
-              Container(
-                height: 160,
-                width: 130, // set a fixed height for the ListView
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  shrinkWrap: true,
-                  itemBuilder: (BuildContext context, int index) {
-                    // build your list items here using data from the API
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      child: Container(
-                          child: MouseRegion(
-                              onEnter: (event) {
-                                setState(() {
+          FutureBuilder<dynamic>(
+            future: ImageMaterialApi.getMaterials( endPoint: 'VideoMaterials'
+            ),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                final materials = snapshot.data!;
 
-                                  _isHovered = true;
-                                });
-                              },
-                              onExit: (event) {
-                                setState(() {
-                                  _isHovered = false;
-                                });
-                              },
-                              child: InkWell(
-                                onTap: () {
-                                  // handle tap action
-                                },
-                                child: Opacity(
-                                    opacity: _isHovered ? 0.5 : 1.0,
-                                    child: customArtical(
-                                      artical: 'Videos',
-                                    )),
-                              ))),
-                    );
-                  },
-                  itemCount: 5,
-                ),
-              ),
+                return Container(
+                    height: 200,
+                    width: 200, // set a fixed height for the ListView
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    itemBuilder: (BuildContext context, int index) {
+                      final material = materials[index];
+                      return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: Container(
+                              child: MouseRegion(
+                                  onEnter: (event) {
+
+                                    setState(() {
+                                      Container(height: 200,width: 200,
+                                        child: Column(children: [
+
+                                        ],),
+
+                                      );
+                                      _isHovered = true;
+                                    });
+                                  },
+                                  onExit: (event) {
+                                    setState(() {
+                                      _isHovered = false;
+                                    });
+                                  },
+                                  child: InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => VideoScreen(material: material),
+                                          ),
+                                        );
+                                      },
+                                      child: Opacity(
+                                        opacity: _isHovered ? 0.5 : 1.0,
+
+                                        child: customArtical(artical:'${material.description}'),
+                                      )))
+                          )
+                      );
+                    },
+                    itemCount: materials.length,
+                  ),
+                );
+              } else if (snapshot.hasError) {
+                return Center(
+                  child: Text('${snapshot.error}'),
+                );
+              } else {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
+          ),
+
             ],
           ),
         ),

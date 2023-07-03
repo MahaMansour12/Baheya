@@ -1,12 +1,9 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:untitled2/shared/states.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:untitled2/ui/home/home.dart';
 import 'package:untitled2/ui/register.dart';
+
 
 import '../remot/network/dio_helper.dart';
 import '../shared/sharedPeferences.dart';
@@ -127,18 +124,19 @@ class Sign_IN extends StatelessWidget {
 
                            onTap: (){
 
-                                ApiLink({
+                               API. ApiLink({
                                   "email":email.text,
                                   "password":password.text
                                 },'login').then((value)async {
 
-                                  if(value.statusCode==200){
-                                    print(value.body);
+                                  if(value.statusCode==200&&formKey.currentState!.validate()){
+
+
                                     Navigator.pushReplacementNamed(context, home_screen.routName);
+                                            
 
-
-                                     SharedPreferences prefs = await SharedPreferences.getInstance();
-                                     String token = prefs.setString('token',value.body) as String;
+                                     // SharedPreferences prefs = await SharedPreferences.getInstance();
+                                     // String token = prefs.setString('token',value.body) as String;
 
 
                                   }else{
@@ -210,7 +208,7 @@ class Sign_IN extends StatelessWidget {
                 children: [
                   InkWell(
                     onTap: () {
-                      googleConnect();
+
                     },
                     child: Container(
                         width: 35,
@@ -260,6 +258,7 @@ class Sign_IN extends StatelessWidget {
                     onTap: () {
                       Navigator.pushReplacementNamed(
                           context, Register.routName);
+
                     },
                   )
                 ],
@@ -275,39 +274,6 @@ class Sign_IN extends StatelessWidget {
   }
 
 
-  void googleConnect() async {
-    Future<UserCredential> signInWithGoogle() async {
-      // Trigger the authentication flow
-      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-
-      // Obtain the auth details from the request
-      final GoogleSignInAuthentication? googleAuth =
-      await googleUser?.authentication;
-
-      // Create a new credential
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth?.accessToken,
-        idToken: googleAuth?.idToken,
-      );
-
-      // Once signed in, return the UserCredential
-      return await FirebaseAuth.instance.signInWithCredential(credential);
-    }
-    // }
-    //
-    // void facebookConnect() {
-    //
-    //   Future<UserCredential> signInWithFacebook() async {
-    //     // Trigger the sign-in flow
-    //     final LoginResult loginResult = await FacebookAuth.instance.login();
-    //
-    //     // Create a credential from the access token
-    //     final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken.token);
-    //
-    //     // Once signed in, return the UserCredential
-    //     return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
-    //   }
-  }
 
 
 

@@ -1,20 +1,20 @@
-class Mat {
-  Mat({
+class Data {
+  Data({
       this.title, 
       this.description, 
       this.stage, 
       this.url,});
 
-  Mat.fromJson(Map<String,dynamic>json) {
+  Data.fromJson(dynamic json) {
     title = json['title'];
     description = json['description'];
     stage = json['stage'];
     url = json['url'];
   }
-  String? title;
+  String ?title;
   String? description;
-  String? stage;
-  String? url;
+  String ?stage;
+  String ?url;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
