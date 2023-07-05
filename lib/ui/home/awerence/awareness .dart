@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:untitled2/ui/Notification.dart';
+import 'package:flutter/services.dart';
+
 import 'package:untitled2/ui/editingAccount/editAccount.dart';
 import 'package:untitled2/ui/otherStage/otherStage.dart';
 import '../../../artical.dart';
@@ -7,6 +8,7 @@ import '../../../dataclick.dart';
 
 import 'package:untitled2/ui/home/tnm.dart';
 import '../../../remot/network/materail.dart';
+import '../../Notification (1).dart';
 import '../../settings.dart';
 import '../../sign_in.dart';
 import '../../videos.dart';
@@ -28,7 +30,39 @@ class _awarenessState extends State<awareness> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: InkWell(
+            onTap: () {
+              SystemNavigator.pop();
+            },
+            child: const Icon(Icons.arrow_back_ios_new_outlined,
+                color: Colors.black, size: 25)),
+        actions: [
+          Icon(Icons.dark_mode_outlined, color: Colors.black, size: 25),
+          SizedBox(
+            width: 10,
+          ),
+          InkWell(
+              onTap: (){
+                Navigator.pushReplacementNamed(context,Notifications.routeName);
+              },
+              child: Icon(Icons.notifications_none_rounded, color: Colors.black, size: 25)),
+          SizedBox(
+            width: 10,
+          ),
+          InkWell(
+              onTap: () {
+                Navigator.pushReplacementNamed(context, Settings.routeName);
+              },
+              child:
+              Icon(Icons.settings_outlined, color: Colors.black, size: 25)),
+          SizedBox(
+            width: 10,
+          ),
+        ],
+      ),
       body:
       Padding(
         padding: const EdgeInsets.all(12),
@@ -67,42 +101,46 @@ class _awarenessState extends State<awareness> {
                     )),
               ),
 
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  InkWell(
-                    onTap: (){
-                      Navigator.pushReplacementNamed(context, bio.routeName);
-                    },
-                    child: homeStage(
-                      image: 'asstes/images/Bio.png',
-                      name: "BIO",
+              Container(
+                width: MediaQuery.of(context).size.width*0.7,
+                height: MediaQuery.of(context).size.height*0.2,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    InkWell(
+                      onTap: (){
+                        Navigator.pushReplacementNamed(context, bio.routeName);
+                      },
+                      child: homeStage(
+                        image: 'asstes/images/Bio.png',
+                        name: "BIO",
+                      ),
                     ),
-                  ),
-                  InkWell(
-                    onTap: (){
-                      Navigator.pushReplacementNamed(context, tnm.routName);
-                    },
-                    child: homeStage(
-                      image: 'asstes/images/TNM.png',
-                      name: "TNM Stage",
+                    InkWell(
+                      onTap: (){
+                        Navigator.pushReplacementNamed(context, tnm.routName);
+                      },
+                      child: homeStage(
+                        image: 'asstes/images/TNM.png',
+                        name: "TNM Stage",
+                      ),
                     ),
-                  ),
-                  homeStage(
-                    image: 'asstes/images/treat.png',
-                    name: "Treatment",
-                  ),
-                  InkWell
-                    (
-                    onTap: (){
-                         Navigator.pushReplacementNamed(context, otherStage.routeName);
-                    },
-                    child: homeStage(
-                      image: 'asstes/images/other.png',
-                      name: "Other Stages",
+                    homeStage(
+                      image: 'asstes/images/treat.png',
+                      name: "Treatment",
                     ),
-                  ),
-                ],
+                    InkWell
+                      (
+                      onTap: (){
+                           Navigator.pushReplacementNamed(context, otherStage.routeName);
+                      },
+                      child: homeStage(
+                        image: 'asstes/images/other.png',
+                        name: "Other Stages",
+                      ),
+                    ),
+                  ],
+                ),
               ),
               SizedBox(
                 height: 20,

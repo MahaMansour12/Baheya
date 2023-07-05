@@ -2,9 +2,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled2/remot/network/dio_helper.dart';
 import 'package:untitled2/shared/sharedPeferences.dart';
-import 'package:untitled2/ui/Notification.dart';
+import 'package:untitled2/ui/GetHelp.dart';
+import 'package:untitled2/ui/Notification%20(1).dart';
+
 import 'package:untitled2/ui/ScreenOne.dart';
 import 'package:untitled2/ui/Suggestion%20&%20Complaints.dart';
+import 'package:untitled2/ui/about.dart';
 import 'package:untitled2/ui/bio/bio.dart';
 import 'package:untitled2/ui/calender.dart';
 import 'package:untitled2/ui/changPassword.dart';
@@ -23,6 +26,7 @@ import 'package:untitled2/ui/sign_in.dart';
 import 'package:untitled2/ui/splashScreen.dart';
 import 'package:untitled2/ui/userData.dart';
 import 'firebase_options.dart';
+import 'ui/book a service.dart';
 import 'ui/home/event/InterstedEvents.dart';
 
 void main() async {
@@ -82,7 +86,10 @@ class MyApp extends StatelessWidget {
         SuggestionAndComplaints.routeName:(context)=>SuggestionAndComplaints(),
         SplashScreen.routeName: (context)=>SplashScreen(),
         Calendar.routeName: (context)=>Calendar(),
-     //   InterstedEvents.routName:(context)=>InterstedEvents(),
+        About.routeName:(context)=>About(),
+        BookAService.routeName:(context)=>BookAService(),
+        GetHelp.routeName:(context)=>GetHelp(),
+
       },
         initialRoute: token != null ?home_screen.routName:SplashScreen.routeName
 

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:untitled2/model/Intersted.dart';
 import 'package:untitled2/ui/home/event/InterstedEvents.dart';
 import 'package:untitled2/ui/home/home.dart';
@@ -13,7 +14,9 @@ import '../../../model/Intersted.dart';
 import '../../../remot/network/event _API.dart';
 import '../../../remot/network/materail.dart';
 import '../../../shared/sharedPeferences.dart';
+import '../../Notification (1).dart';
 import '../../customButton.dart';
+import '../../settings.dart';
 import '../../widgets/customIamge.dart';
 import 'package:http/http.dart' as http;
 
@@ -42,6 +45,39 @@ class _eventState extends State<event> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          leading: InkWell(
+              onTap: () {
+               Navigator.pushReplacementNamed(context, home_screen.routName);
+              },
+              child: const Icon(Icons.arrow_back_ios_new_outlined,
+                  color: Colors.black, size: 25)),
+          actions: [
+            Icon(Icons.dark_mode_outlined, color: Colors.black, size: 25),
+            SizedBox(
+              width: 10,
+            ),
+            InkWell(
+                onTap: (){
+                  Navigator.pushReplacementNamed(context,Notifications.routeName);
+                },
+                child: Icon(Icons.notifications_none_rounded, color: Colors.black, size: 25)),
+            SizedBox(
+              width: 10,
+            ),
+            InkWell(
+                onTap: () {
+                  Navigator.pushReplacementNamed(context, Settings.routeName);
+                },
+                child:
+                Icon(Icons.settings_outlined, color: Colors.black, size: 25)),
+            SizedBox(
+              width: 10,
+            ),
+          ],
+        ),
         body: Padding(
             padding: const EdgeInsets.all(8),
               child: Column(children: [

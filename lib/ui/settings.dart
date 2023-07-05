@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:untitled2/ui/GetHelp.dart';
+import 'package:untitled2/ui/about.dart';
 import 'package:untitled2/ui/editingAccount/editAccount.dart';
 import 'package:untitled2/ui/home/awerence/awareness%20.dart';
 
@@ -6,7 +8,8 @@ import 'package:untitled2/ui/widgets/customButton.dart';
 
 import '../remot/Api_petion_information/API_PatientInformation.dart';
 import '../remot/Api_petion_information/PationInformation.dart';
-import 'Notification.dart';
+
+import 'Notification (1).dart';
 import 'Suggestion & Complaints.dart';
 
 class Settings extends StatelessWidget {
@@ -127,9 +130,13 @@ IconButton(onPressed:(){
               SizedBox(height: 10,),
               CustomButton3(Icons.sort_by_alpha,'Langauge ', (){}),
               SizedBox(height: 10,),
-              CustomButton3( Icons.headset_mic_outlined,'Get Help',(){}),
+              CustomButton3( Icons.headset_mic_outlined,'Get Help',(){
+                Navigator.pushReplacementNamed(context, GetHelp.routeName);
+              }),
               SizedBox(height: 10,),
-              CustomButton3(Icons.help,'About App',(){}),
+              CustomButton3(Icons.help,'About App',(){
+                Navigator.pushReplacementNamed(context, About.routeName);
+              }),
               SizedBox(height: 70,),
               CustomButton('Sign Out',(){}),
 

@@ -3,6 +3,7 @@ import 'package:untitled2/ui/settings.dart';
 
 import 'customButton.dart';
 
+
 class Notifications extends StatelessWidget {
   static const String routeName = 'Notifications';
 

@@ -4,6 +4,8 @@ import 'package:untitled2/ui/home/home.dart';
 import '../../../remot/Api_petion_information/API_PatientInformation.dart';
 import '../../../remot/Api_petion_information/PationInformation.dart';
 import '../../../shared/sharedPeferences.dart';
+import '../../Notification (1).dart';
+import '../../settings.dart';
 import '../../widgets/formData.dart';
 
 class Account extends StatelessWidget {
@@ -14,7 +16,39 @@ class Account extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: InkWell(
+            onTap: () {
+            Navigator.pushReplacementNamed(context, home_screen.routName);
+            },
+            child: const Icon(Icons.arrow_back_ios_new_outlined,
+                color: Colors.black, size: 25)),
+        actions: [
+          Icon(Icons.dark_mode_outlined, color: Colors.black, size: 25),
+          SizedBox(
+            width: 10,
+          ),
+          InkWell(
+              onTap: (){
+                Navigator.pushReplacementNamed(context,Notifications.routeName);
+              },
+              child: Icon(Icons.notifications_none_rounded, color: Colors.black, size: 25)),
+          SizedBox(
+            width: 10,
+          ),
+          InkWell(
+              onTap: () {
+                Navigator.pushReplacementNamed(context, Settings.routeName);
+              },
+              child:
+              Icon(Icons.settings_outlined, color: Colors.black, size: 25)),
+          SizedBox(
+            width: 10,
+          ),
+        ],
+      ),
       body:FutureBuilder<PatientInformation>(
 
         future:Information.InformationPatient(),

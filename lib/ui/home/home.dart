@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:untitled2/ui/Notification.dart';
+
 
 import 'package:untitled2/ui/home/support/support.dart';
 import 'package:untitled2/ui/settings.dart';
 import 'package:untitled2/ui/sign_in.dart';
 
+import '../Notification (1).dart';
 import '../calender.dart';
 import '../editingAccount/editAccount.dart';
 import '../userData.dart';
@@ -26,39 +27,7 @@ class _home_screenState extends State<home_screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: InkWell(
-            onTap: () {
-              SystemNavigator.pop();
-            },
-            child: const Icon(Icons.arrow_back_ios_new_outlined,
-                color: Colors.black, size: 25)),
-        actions: [
-          Icon(Icons.dark_mode_outlined, color: Colors.black, size: 25),
-          SizedBox(
-            width: 10,
-          ),
-          InkWell(
-              onTap: (){
-                Navigator.pushReplacementNamed(context,Notifications.routeName);
-              },
-              child: Icon(Icons.notifications_none_rounded, color: Colors.black, size: 25)),
-          SizedBox(
-            width: 10,
-          ),
-          InkWell(
-              onTap: () {
-                Navigator.pushReplacementNamed(context, Settings.routeName);
-              },
-              child:
-              Icon(Icons.settings_outlined, color: Colors.black, size: 25)),
-          SizedBox(
-            width: 10,
-          ),
-        ],
-      ),
+
 
       body:Taps[selextindex],
       bottomNavigationBar: BottomNavigationBar(
@@ -75,7 +44,7 @@ class _home_screenState extends State<home_screen> {
           const BottomNavigationBarItem(
             icon: ImageIcon(AssetImage('asstes/images/home.png'),
                 color: Colors.grey, size: 35),
-            label: "Aِِِwareness ",
+            label: "Awareness ",
 
           ),
           BottomNavigationBarItem(
