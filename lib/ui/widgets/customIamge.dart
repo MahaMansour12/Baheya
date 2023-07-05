@@ -10,7 +10,7 @@ class MyImageWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(10),
       child: Container(
-        width: 250,
+        width: 300,
         height: 250,
         decoration: BoxDecoration(
           border: Border.all(width: 1, color: Colors.grey),
@@ -18,7 +18,7 @@ class MyImageWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(20)),
         child: Image.network(
           imageUrl,
-          fit: BoxFit.cover,
+          fit: BoxFit.fill,
           loadingBuilder: (context, child, loadingProgress) {
             if (loadingProgress == null) {
               return child;

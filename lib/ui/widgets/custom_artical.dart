@@ -10,12 +10,12 @@ class customArtical extends StatelessWidget {
       padding: const EdgeInsets.all(8),
       child: Container(
         padding: const EdgeInsets.all(10),
-        height: 250,
-        width: 250,
+        height: 200,
+        width: 200,
         decoration: BoxDecoration(
 
             color: const Color(0x51f8aca2),
-            borderRadius: BorderRadius.circular(10)),child: Center(child: Text(artical,style: TextStyle(fontSize: 18),))
+            borderRadius: BorderRadius.circular(10)),child: Center(child: Text(artical,style: TextStyle(fontSize: 18,),textAlign: TextAlign.center,))
       )
       ,
     );

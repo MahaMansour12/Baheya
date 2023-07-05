@@ -17,13 +17,17 @@ class ImageMaterialApi {
     List<Material> materials = [];
     for (var item in jsonData) {
       materials.add(Material.fromJson(item));
+
     }
+
+
     return materials;
   }
 }
 
 class Material {
 
+  final String? id;
   final String? title;
   final String? description;
   final String? stage;
@@ -36,6 +40,7 @@ class Material {
 
   Material( {
 
+     required this.id,
     required this.title,
     required this.description,
     required this.stage,
@@ -49,6 +54,7 @@ class Material {
 
   factory Material.fromJson(Map<String, dynamic> json) {
     return Material(
+        id: json['_id'],
       title: json['title'],
       description: json['description'],
       stage: json['stage'],

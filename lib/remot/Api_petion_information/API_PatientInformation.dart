@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 import '../network/dio_helper.dart';
@@ -18,6 +19,7 @@ class Information{
     final jsonData = jsonDecode(response.body);
     PatientInformation Information = PatientInformation.fromJson(jsonData);
     return Information;
+
   }
 
 }

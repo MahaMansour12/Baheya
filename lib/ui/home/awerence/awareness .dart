@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:untitled2/ui/Notification.dart';
 import 'package:untitled2/ui/editingAccount/editAccount.dart';
 import 'package:untitled2/ui/otherStage/otherStage.dart';
 import '../../../artical.dart';
 import '../../../dataclick.dart';
 
-
+import 'package:untitled2/ui/home/tnm.dart';
 import '../../../remot/network/materail.dart';
+import '../../settings.dart';
 import '../../sign_in.dart';
 import '../../videos.dart';
 import '../../widgets/customIamge.dart';
@@ -26,36 +28,9 @@ class _awarenessState extends State<awareness> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: InkWell(
-            onTap: () {
-              Navigator.pushReplacementNamed(context, Sign_IN.routeName);
-            },
-            child: const Icon(Icons.arrow_back_ios_new_outlined,
-                color: Colors.black, size: 25)),
-        actions: [
-          Icon(Icons.dark_mode_outlined, color: Colors.black, size: 25),
-          SizedBox(
-            width: 10,
-          ),
-          Icon(Icons.notifications_none_rounded, color: Colors.black, size: 25),
-          SizedBox(
-            width: 10,
-          ),
-          InkWell(
-              onTap: () {
-                Navigator.pushReplacementNamed(context, editAccount.routName);
-              },
-              child:
-                  Icon(Icons.settings_outlined, color: Colors.black, size: 25)),
-          SizedBox(
-            width: 10,
-          ),
-        ],
-      ),
-      body: Padding(
+
+      body:
+      Padding(
         padding: const EdgeInsets.all(12),
         child: SingleChildScrollView(
           child: Column(
@@ -71,7 +46,7 @@ class _awarenessState extends State<awareness> {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
               const SizedBox(
-                height: 15,
+                height: 20,
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -104,9 +79,14 @@ class _awarenessState extends State<awareness> {
                       name: "BIO",
                     ),
                   ),
-                  homeStage(
-                    image: 'asstes/images/TNM.png',
-                    name: "TNM Stage",
+                  InkWell(
+                    onTap: (){
+                      Navigator.pushReplacementNamed(context, tnm.routName);
+                    },
+                    child: homeStage(
+                      image: 'asstes/images/TNM.png',
+                      name: "TNM Stage",
+                    ),
                   ),
                   homeStage(
                     image: 'asstes/images/treat.png',
@@ -125,17 +105,17 @@ class _awarenessState extends State<awareness> {
                 ],
               ),
               SizedBox(
-                height: 10,
+                height: 20,
               ),
               Row(
                 children: [
-                  Icon(Icons.image, size: 30),
+                  Icon(Icons.image, size: 25),
                   SizedBox(
                     width: 10,
                   ),
                   Text(
                     'Images',
-                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 24),
+                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
                   ),
                 ],
               ),
@@ -145,8 +125,8 @@ class _awarenessState extends State<awareness> {
                   if (snapshot.hasData) {
                     final materials = snapshot.data!;
                     return Container(
-                      height: 200,
-                      width: 200, // set a fixed height for the ListView
+                        height: 350,
+                        width: 120, // set a fixed height for the ListView
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         shrinkWrap: true,
@@ -213,13 +193,13 @@ class _awarenessState extends State<awareness> {
               ),
               Row(
                 children: [
-                  Icon(Icons.article_outlined, size: 30),
+                  Icon(Icons.article_outlined, size: 25),
                   SizedBox(
                     width: 10,
                   ),
                   Text(
                     'Artical',
-                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 24),
+                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
                   ),
                 ],
               ),
@@ -231,8 +211,8 @@ class _awarenessState extends State<awareness> {
                     final materials = snapshot.data!;
 
                     return Container(
-                      height: 200,
-                      width: 250, // set a fixed height for the ListView
+                      height: 220,
+                      width: 120,  // set a fixed height for the ListView
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         shrinkWrap: true,
@@ -245,7 +225,8 @@ class _awarenessState extends State<awareness> {
                                       onEnter: (event) {
 
                                         setState(() {
-                                          Container(height: 200,width: 200,
+                                          Container(height: 140,
+                                            width: 100,
                                           child: Column(children: [
 
                                           ],),
@@ -271,7 +252,7 @@ class _awarenessState extends State<awareness> {
                                           child: Opacity(
                                               opacity: _isHovered ? 0.5 : 1.0,
 
-                                              child: customArtical(artical:'${material.description}'),
+                                              child: customArtical(artical:'${material.title}'),
                                                   )))
                                   )
                           );
@@ -295,13 +276,13 @@ class _awarenessState extends State<awareness> {
               ),
               Row(
                 children: const [
-                  Icon(Icons.play_arrow_outlined, size: 30),
+                  Icon(Icons.play_arrow_outlined, size: 25),
                   SizedBox(
                     width: 10,
                   ),
                   Text(
                     'Videos',
-                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 24),
+                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
                   ),
                 ],
               ),
@@ -309,12 +290,14 @@ class _awarenessState extends State<awareness> {
             future: ImageMaterialApi.getMaterials( endPoint: 'VideoMaterials'
             ),
             builder: (context, snapshot) {
+
               if (snapshot.hasData) {
+
                 final materials = snapshot.data!;
 
                 return Container(
-                    height: 200,
-                    width: 200, // set a fixed height for the ListView
+                  height: 220,
+                  width: 100, // set a fixed height for the ListView
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     shrinkWrap: true,
@@ -353,7 +336,7 @@ class _awarenessState extends State<awareness> {
                                       child: Opacity(
                                         opacity: _isHovered ? 0.5 : 1.0,
 
-                                        child: customArtical(artical:'${material.description}'),
+                                        child: customArtical(artical:'${material.title}'),
                                       )))
                           )
                       );

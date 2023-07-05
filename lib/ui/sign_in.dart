@@ -87,7 +87,7 @@ class Sign_IN extends StatelessWidget {
                             if (value == null || value
                                 .trim()
                                 .isEmpty) {
-                              return 'Enter phone Email';
+                              return 'Please enter your Email';
                             }
                           },
                         ),
@@ -112,7 +112,7 @@ class Sign_IN extends StatelessWidget {
                                 hintText: 'password'),
                             validator: (pass) {
                               if (pass?.trim() == "") {
-                                return "Please enter password";
+                                return "Please enter your password";
                               }
                             }),
                       ),
@@ -252,7 +252,7 @@ class Sign_IN extends StatelessWidget {
                       'Register ',
                       style: TextStyle(
                         fontSize: 17,
-                        color: Colors.indigo,
+                        color: Color(0xffF79489),
                       ),
                     ),
                     onTap: () {

@@ -8,6 +8,8 @@ class bio extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          centerTitle: true,
+          title:  Text('BIO',style: TextStyle(color: Colors.black,fontSize: 18)),
           backgroundColor: Colors.transparent,
           elevation: 0,
           leading: InkWell(

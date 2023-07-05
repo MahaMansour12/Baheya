@@ -3,7 +3,9 @@ import 'package:untitled2/ui/home/home.dart';
 
 import '../../dataclick.dart';
 import '../../remot/network/materail.dart';
+import '../../shared/sharedPeferences.dart';
 import '../widgets/customIamge.dart';
+import '../widgets/custom_artical.dart';
 import '../widgets/stageContainer.dart';
 
 class otherStage extends StatefulWidget {
@@ -20,7 +22,8 @@ class _otherStageState extends State<otherStage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Other Stage',),
+          backgroundColor:Colors.transparent,
+          title: Text('Other Stage',style: TextStyle(color: Colors.black, fontSize: 18)),
        centerTitle: true,
        // backgroundColor: Colors.transparent,
         elevation: 0,
@@ -36,14 +39,10 @@ class _otherStageState extends State<otherStage> {
           padding: const EdgeInsets.all(10),
           child: Column(
             children: [
-              Divider(
-                height: 4,
-                thickness: 2,
-                color: Color(0x51f8aca2),
-              ),
+
               Text(
                 'Surgery',
-                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 24),
+                style: TextStyle(color: Colors.black, fontSize: 18),
               ), SizedBox(height: 10,),
           Divider(
             height: 4,
@@ -98,8 +97,7 @@ class _otherStageState extends State<otherStage> {
                                                 ),
                                               );
                                             },
-                                            child:MyImageWidget(imageUrl: material.url??'',
-                                            ),
+                                            child:customArtical(artical: material.title),
                                           )
                                       )
 
@@ -129,7 +127,7 @@ class _otherStageState extends State<otherStage> {
         ),SizedBox(height: 10,),
               Text(
                 'Chemo Therapy',
-                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 24),
+                style: TextStyle(color: Colors.black, fontSize: 18),
               ), SizedBox(height: 10,),
 
               Divider(
@@ -186,8 +184,7 @@ class _otherStageState extends State<otherStage> {
                                                 ),
                                               );
                                             },
-                                            child:MyImageWidget(imageUrl: material.url??'',
-                                            ),
+                                            child:customArtical(artical: material.title),
                                           )
                                       )
 
@@ -219,7 +216,7 @@ class _otherStageState extends State<otherStage> {
               ),SizedBox(height: 10,),
               Text(
                 'Targeted Therapy',
-                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 24),
+                style: TextStyle(color: Colors.black, fontSize: 18),
 
               ),SizedBox(height: 10,),
               Divider(
@@ -275,8 +272,7 @@ class _otherStageState extends State<otherStage> {
                                                 ),
                                               );
                                             },
-                                            child:MyImageWidget(imageUrl: material.url??'',
-                                            ),
+                                            child:customArtical(artical: material.title),
                                           )
                                       )
 
@@ -306,7 +302,7 @@ class _otherStageState extends State<otherStage> {
               ), SizedBox(height: 10,),
               Text(
                 'Hormonal Therapy',
-                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 24),
+                style: TextStyle(color: Colors.black, fontSize: 18),
 
               ),SizedBox(height: 10,),
                Divider(
@@ -362,8 +358,7 @@ class _otherStageState extends State<otherStage> {
                                                 ),
                                               );
                                             },
-                                            child:MyImageWidget(imageUrl: material.url??'',
-                                            ),
+                                            child:customArtical(artical: material.title),
                                           )
                                       )
 
@@ -391,9 +386,9 @@ class _otherStageState extends State<otherStage> {
                 thickness: 2,
                 color: Color(0x51f8aca2),
               ),SizedBox(height: 10,),
-              Text(
-                'Radio Therapy',
-                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 24),
+              const Text(
+                'General Awareness',
+                style: TextStyle(color: Colors.black, fontSize: 18),
 
               ),SizedBox(height: 10,),
               Divider(
@@ -418,7 +413,7 @@ class _otherStageState extends State<otherStage> {
                         itemBuilder: (BuildContext context, int index) {
                           final material = materials[index];
 
-
+                          SharedPreferencesHelperr.setData(key:'material.url' ,value:material.url);
 
                           return Padding(
                               padding: const EdgeInsets.symmetric(vertical: 10),
@@ -449,9 +444,7 @@ class _otherStageState extends State<otherStage> {
                                                   builder: (context) => ImageMaterialDetailScreen(material: material),
                                                 ),
                                               );
-                                            },
-                                            child:MyImageWidget(imageUrl: material.url??'',
-                                            ),
+                                            }, child:customArtical(artical: material.title),
                                           )
                                       )
 

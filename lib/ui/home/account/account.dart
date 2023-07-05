@@ -3,6 +3,7 @@ import 'package:untitled2/ui/home/home.dart';
 
 import '../../../remot/Api_petion_information/API_PatientInformation.dart';
 import '../../../remot/Api_petion_information/PationInformation.dart';
+import '../../../shared/sharedPeferences.dart';
 import '../../widgets/formData.dart';
 
 class Account extends StatelessWidget {
@@ -13,24 +14,13 @@ class Account extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(' Profile',
-            style: TextStyle(color: Colors.black, fontSize: 18)),
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: InkWell(
-            onTap: () {
-              Navigator.pushReplacementNamed(context, home_screen.routName);
-            },
-            child: const Icon(Icons.arrow_back_ios_new_outlined,
-                color: Colors.black, size: 25)),
-      ),
+
       body:FutureBuilder<PatientInformation>(
 
         future:Information.InformationPatient(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
+
             return
               Padding(
                   padding: const EdgeInsets.all(10),
@@ -90,9 +80,11 @@ class Account extends StatelessWidget {
                             textData:snapshot.data?.phone??'' ,
                           ),
                           SizedBox(height: 22,),
-                          Text(snapshot.data?.chosenStage??'' ,
+                          Text('Stage : ${snapshot.data?.chosenStage??''}',
                               style: TextStyle(color: Colors.black, fontSize: 20),
                               textAlign: TextAlign.start),
+                          SizedBox(height: 20),
+
                           Text('Most breast cancers are found in women who are 50 years old or older,\n'
                               ' but breast cancer also affects younger women. While breast cancer diagnosis  '
                               'and treatment are difficult for women of any age, young survivors may find it '

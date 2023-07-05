@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:untitled2/ui/editingAccount/editAccount.dart';
+import 'package:untitled2/ui/home/home.dart';
 import 'package:untitled2/ui/widgets/customForm.dart';
 
 import '../remot/Api_petion_information/API_PatientInformation.dart';
@@ -17,16 +18,17 @@ class UPdataPassword extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-       // backgroundColor: Colors.transparent,
+        centerTitle: true,
+        title:  Text('Change your Password',style: TextStyle(color: Colors.black,fontSize: 18)),
+        backgroundColor: Colors.transparent,
         elevation: 0,
         leading: InkWell(
             onTap: () {
-              Navigator.pushReplacementNamed(context,editAccount.routName);
+              Navigator.pushReplacementNamed(context,home_screen.routName);
             },
             child: const Icon(Icons.arrow_back_ios_new_outlined,
                 color: Colors.black, size: 25)),
-        title: Text('Change Password',
-      ),),
+      ) ,
       body: Container(
         padding: EdgeInsets.all(16),
         child: Form(
@@ -67,7 +69,10 @@ class UPdataPassword extends StatelessWidget {
                     "newPassword":password.text,
                     "confirmPassword":confirmPassword.text
 
-                  }, endpoint: 'UpdatePassword');
+                  }, endpoint: 'UpdatePassword').then((value) =>  AlertDialog(actions: [
+                    CircularProgressIndicator()
+                  ], ));
+
                 },
                 child: Container(
                   padding: const EdgeInsets.symmetric(vertical: 15),

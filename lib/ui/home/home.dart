@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:untitled2/ui/Notification.dart';
 
 import 'package:untitled2/ui/home/support/support.dart';
+import 'package:untitled2/ui/settings.dart';
+import 'package:untitled2/ui/sign_in.dart';
 
+import '../calender.dart';
 import '../editingAccount/editAccount.dart';
 import '../userData.dart';
 import 'account/account.dart';
@@ -21,9 +26,44 @@ class _home_screenState extends State<home_screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //final String data = ModalRoute.of(context)!.settings.arguments as String;
-      body: Taps[selextindex],
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: InkWell(
+            onTap: () {
+              SystemNavigator.pop();
+            },
+            child: const Icon(Icons.arrow_back_ios_new_outlined,
+                color: Colors.black, size: 25)),
+        actions: [
+          Icon(Icons.dark_mode_outlined, color: Colors.black, size: 25),
+          SizedBox(
+            width: 10,
+          ),
+          InkWell(
+              onTap: (){
+                Navigator.pushReplacementNamed(context,Notifications.routeName);
+              },
+              child: Icon(Icons.notifications_none_rounded, color: Colors.black, size: 25)),
+          SizedBox(
+            width: 10,
+          ),
+          InkWell(
+              onTap: () {
+                Navigator.pushReplacementNamed(context, Settings.routeName);
+              },
+              child:
+              Icon(Icons.settings_outlined, color: Colors.black, size: 25)),
+          SizedBox(
+            width: 10,
+          ),
+        ],
+      ),
+
+      body:Taps[selextindex],
       bottomNavigationBar: BottomNavigationBar(
+        elevation: 160,
+
         currentIndex: selextindex,
         onTap: (index) {
           setState(() {
@@ -31,10 +71,12 @@ class _home_screenState extends State<home_screen> {
           });
         },
         items: [
+
           const BottomNavigationBarItem(
             icon: ImageIcon(AssetImage('asstes/images/home.png'),
                 color: Colors.grey, size: 35),
-            label: "awareness ",
+            label: "Aِِِwareness ",
+
           ),
           BottomNavigationBarItem(
               icon: ImageIcon(AssetImage('asstes/images/event.png'),
@@ -47,7 +89,7 @@ class _home_screenState extends State<home_screen> {
                 shape: const StadiumBorder(
                     side: BorderSide(color: Color(0xfff8aca2), width: 4)),
                 onPressed: () {
-                  Navigator.pushReplacementNamed(context,UserData.routName);
+                  Navigator.pushReplacementNamed(context,Calendar.routeName);
                 },
                 child: Icon(Icons.add, color: Color(0xfff8aca2), size: 30),
               ),
@@ -68,8 +110,9 @@ class _home_screenState extends State<home_screen> {
   List<Widget> Taps = [
     awareness(),
     event(),
-    UserData(),
+    Calendar(),
     support(),
     Account(),
   ];
 }
+//,

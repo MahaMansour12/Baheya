@@ -14,7 +14,7 @@ class homeStage extends StatelessWidget {
           child: Container(
               padding: const EdgeInsets.all(10),
           height: 70,
-          width: 75,
+          width: 70,
           decoration: BoxDecoration(
 
           color: const Color(0x51f8aca2),

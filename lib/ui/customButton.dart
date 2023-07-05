@@ -11,8 +11,8 @@ class CustomButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(6.0),
       child: Container(
-        height: 52,
-        width: 225,
+        height: 45,
+        width: MediaQuery.of(context).size .width*0.5,
         child: ElevatedButton(
           onPressed: onPressed,
           style: ElevatedButton.styleFrom(
@@ -27,7 +27,7 @@ class CustomButton extends StatelessWidget {
               SizedBox(width: 10.0), // Add some spacing between icon and text
               Text(
                 text,
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: Colors.black,fontSize: 16),
               ), // Add text to button
             ],
           ),

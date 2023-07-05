@@ -338,7 +338,7 @@ class _RegisterState extends State<Register> {
                   child: const Text('Sign in ',
                       style: TextStyle(
                         fontSize: 17,
-                        color: Colors.indigo,
+                        color: Color(0xffF79489),
                       )),
                 )
               ],
